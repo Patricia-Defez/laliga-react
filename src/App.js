@@ -1,15 +1,20 @@
 import React, { Component } from 'react';
 import {  Switch, Route } from 'react-router-dom';
 import NavBar from './components/misc/NavBar'
-import UserList from './components/UsersLis'
+import UserList from './components/UsersList'
+import User from './components/User'
 
 class App extends Component {
   render() {
     return (
       <div className="App">
           <NavBar/>
-          <Route path="/users" component={UserList}/>
-
+          <section>
+            <Switch>
+              <Route exact path="/users" component={UserList}/>
+              <Route exact path="/users/:id" component={User}/>
+          </Switch>
+          </section>
       </div>
     );
 

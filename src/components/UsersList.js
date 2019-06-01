@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { list } from '../services/UsersService'
+import { Link } from 'react-router-dom'
 
 
 class UsersList extends Component {
@@ -32,7 +33,7 @@ class UsersList extends Component {
                             <thead>
                                 <tr className="text-center align-middle">
                                     <th scope="col">#</th>
-                                    <th scope="col"><i class="fa fa-users fa-lg"></i></th>
+                                    <th scope="col"><i className="fa fa-users fa-lg"></i></th>
                                     <th scope="col">Nombre</th>
                                     <th scope="col">Apellido</th>
                                     <th scope="col">email</th>
@@ -45,8 +46,8 @@ class UsersList extends Component {
                                     <tr {...user} key={index} className="text-center align-middle">
                                     <th scope="row">{index + 1}</th>
                                     <td><img className="img-fluid rounded-circle" width="50" height="50" src={user.avatar || "http://ecuciencia.utc.edu.ec/media/foto/default-user_x5fGYax.png"}/></td>
-                                    {/* <Link to={`/students/${user.id}`}><td>{user.first_name} </td></Link> */}
-                                    <td>{user.first_name}</td>
+                                    <td><Link to={`/users/${user.id}`}>{user.first_name} </Link></td>
+                                    {/* <td>{user.first_name}</td> */}
                                     <td>{user.last_name}</td>
                                     <td>{user.email}</td>
                                     </tr>

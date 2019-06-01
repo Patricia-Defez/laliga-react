@@ -7,6 +7,11 @@ const list = (query) => {
     }).then(response => response.data);
 }
 
+const getUser = (id) => http.get(`/users/${id}`)
+    .then(response => response.data)
+     
+
 export {
-    list
+    list,
+    getUser
 }
