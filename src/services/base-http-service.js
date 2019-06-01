@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const http = axios.create({
-    baseURL: 'https://reqres.in',
+    baseURL: 'https://reqres.in/api',
     withCredentials: false
 });
 http.interceptors.response.use(

@@ -10,7 +10,7 @@ class UsersList extends Component {
     }
 
     componentDidMount = () => {
-        list()
+        list({per_page:5,page:1})
             .then(response => {
                 this.setState({ users: response.data })
                 console.log(this.props)
