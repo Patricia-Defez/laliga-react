@@ -4,20 +4,8 @@ import { Link } from 'react-router-dom'
 
 
 const validations = {
-    name: (value) => {
-        let message;
-        if (!value) {
-            message = 'El nombre es un campo necesario';
-        }
-        return message;
-    },
-    job: (value) => {
-        let message;
-        if (!value) {
-            message = 'El empleo es un campo necesario';
-        }
-        return message;
-    }
+    name: v => v.length > 0,
+    job: v => v.length > 0
 }
 
 class CreateUser extends Component {
@@ -28,28 +16,37 @@ class CreateUser extends Component {
             job: ''
         },
         isRegistered: false,
-        errors: true,
+        errors: {
+            name: true,
+            job: true
+        },
         touch: {}
     }
 
     handleChange = (e) => {
         const { name, value } = e.target;
+        const error = {
+            [name]: !validations[e.target.name]
+        }
         this.setState({
             user: {
                 ...this.state.user,
                 [name]: value
             },
-            errors: false
+            errors: {
+                ...this.state.errors,
+                ...error
+            }
         })
         
     }
 
     handleBlur = (e) => {
-        const { name } = e.target;
+        // const { name } = e.target;
         this.setState({
             touch: {
                 ...this.state.touch,
-                [name]: true
+                [e.target.name]: true
             }
         })
     }
@@ -66,21 +63,8 @@ class CreateUser extends Component {
                         console.log(user)
                         this.setState({ isRegistered: true });
                         console.log(user)
-                    }, 
-                    (error) => {
-                        const { message, errors } = error.response.data;
-                        this.setState({
-                            errors: {
-                                ...errors,
-                                job: !errors && message
-                            },
-                            touch: {
-                                ...errors,
-                                job: !errors && message
-     
-                            }
-                        })
-                    }
+                    } 
+                  
                 )
             this.setState({
                 user: {
@@ -88,7 +72,10 @@ class CreateUser extends Component {
                     job: ''
                 },
                 isRegistered: false,
-                errors: {},
+                errors: {
+                    name: true,
+                    job: true
+                },
                 touch: {},
             })
         }
@@ -114,6 +101,9 @@ class CreateUser extends Component {
                                 onChange={this.handleChange}
                                 onBlur={this.handleBlur}
                                 value={user.name}  />
+                             {touch.name && errors.name && (
+                                <p className="text-danger">El campo es obligatorio</p>
+                            )}  
                         </div>
 
                         <div className="form-group">
@@ -122,8 +112,8 @@ class CreateUser extends Component {
                                 onChange={this.handleChange}
                                 onBlur={this.handleBlur}
                                 value={user.job}  />
-                             {touch && errors && (
-                                <p className="help is-danger">Los campos son obligatorios</p>
+                             {touch.job && errors.job && (
+                                <p className="text-danger">El campo es obligatorio</p>
                             )}  
                             </div>
 

@@ -12,10 +12,14 @@ const getUser = (id) => http.get(`/users/${id}`)
 
 const createUser = (user) => http.post('/users', user)
     .then(response => response.data)
+
+const updateUser = (id, user) => http.patch(`/users/${id}`, user)
+    .then(response => response.data)
      
 
 export {
     list,
     getUser,
-    createUser
+    createUser,
+    updateUser
 }
