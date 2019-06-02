@@ -3,7 +3,7 @@ import { createUser } from '../services/UsersService'
 import { Link } from 'react-router-dom'
 
 
-const validation = {
+const validations = {
     name: (value) => {
         let message;
         if (!value) {
@@ -28,8 +28,8 @@ class CreateUser extends Component {
             job: ''
         },
         isRegistered: false,
-        errors: {},
-        touch: {},
+        errors: true,
+        touch: {}
     }
 
     handleChange = (e) => {
@@ -39,11 +39,9 @@ class CreateUser extends Component {
                 ...this.state.user,
                 [name]: value
             },
-            errors: {
-                ...this.state.errors,
-                [name]: validation[name] && validation[name](value)
-            }
+            errors: false
         })
+        
     }
 
     handleBlur = (e) => {
@@ -72,12 +70,27 @@ class CreateUser extends Component {
                     (error) => {
                         const { message, errors } = error.response.data;
                         this.setState({
-                            ...this.state.errors,
-                            ...errors,
-                            name: !errors && message
+                            errors: {
+                                ...errors,
+                                job: !errors && message
+                            },
+                            touch: {
+                                ...errors,
+                                job: !errors && message
+     
+                            }
                         })
                     }
                 )
+            this.setState({
+                user: {
+                    name: '',
+                    job: ''
+                },
+                isRegistered: false,
+                errors: {},
+                touch: {},
+            })
         }
     }
 
@@ -97,7 +110,7 @@ class CreateUser extends Component {
                     <form id="profile-form" className="mt-4" onSubmit={this.handleSubmit}>
                         <div className="form-group">
                             <label>Nombre</label>
-                            <input type="text" name="name" className="form-control"
+                            <input type="text" name="name" className={`form-control ${touch.name && errors.name && 'is-invalid'}`}
                                 onChange={this.handleChange}
                                 onBlur={this.handleBlur}
                                 value={user.name}  />
@@ -105,12 +118,14 @@ class CreateUser extends Component {
 
                         <div className="form-group">
                             <label>Empleo</label>
-                            <input type="text" name="job" className="form-control"
+                            <input type="text" name="job" className={`form-control ${touch.job && errors.job && 'is-invalid'}`}
                                 onChange={this.handleChange}
                                 onBlur={this.handleBlur}
                                 value={user.job}  />
-                            <div className="invalid-feedback">{errors.user}</div>    
-                        </div>
+                             {touch && errors && (
+                                <p className="help is-danger">Los campos son obligatorios</p>
+                            )}  
+                            </div>
 
                         <div className="col-6 pt-4">
                         <button className="btn btn-primary" form="profile-form" type="submit" disabled={!this.isValid()}>Crear Usuario</button>
