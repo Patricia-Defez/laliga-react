@@ -18,7 +18,13 @@ class UsersList extends Component {
                 console.log(response)
             });      
     }
-    
+    componentDidUpdate = () => {
+        list({per_page:5,page:this.state.currentPage})
+            .then(response => {
+                this.setState({ users: response.data })
+                console.log(response)
+            });  
+    }
 
     pagination = (e) => {
         console.log(e.target.id)

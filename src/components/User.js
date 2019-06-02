@@ -35,7 +35,7 @@ class User extends Component {
     render() {
         return (
             <div className="row justify-content-center mt-5">
-                <div className="box w-50 ">
+                <div className="box mx-auto col-sm-4 mt-5">
                     <div className="media ">
                         <div className="media-left mr-5">
                             <figure className="image is-64x64">
@@ -48,9 +48,10 @@ class User extends Component {
                             <p>email: {this.state.user.email}</p>
 
                         </div>
-                    </div>
 
+                    </div>
                     <a className="float-right"><i className='fa fa-reply fa-2x mt-3 text-danger' onClick={() => this.props.history.go(-1)}></i></a>
+
                 </div>
             </div>
 
