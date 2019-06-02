@@ -54,6 +54,9 @@ class UsersList extends Component {
                                 ))}
                             </tbody>                                   
                         </table>
+                        <div className="mt-3">          
+                        <Link className="btn btn-sm btn-primary float-right" to={`/users/create`}>Crear Usuario</Link>
+                        </div>
                     </div>               
             </div>
 
