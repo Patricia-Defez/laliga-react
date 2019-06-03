@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { createUser } from '../services/UsersService'
-import { Link } from 'react-router-dom'
-
+import FormField from './FormField'
 
 const validations = {
     name: v => v.length > 0,
@@ -42,7 +41,6 @@ class CreateUser extends Component {
     }
 
     handleBlur = (e) => {
-        // const { name } = e.target;
         this.setState({
             touch: {
                 ...this.state.touch,
@@ -87,41 +85,37 @@ class CreateUser extends Component {
     }
 
     render() {
-        const { user, errors, touch } = this.state;
+        // const { user, errors, touch } = this.state;
         return (
-            <div className = "row justify-content-center mt-5 ">
+            <div className = "row justify-content-center mt-5 pl-5">
             <div className="box mx-auto col-sm-4 mt-5">
 
                 <div className="">
-                    <h3>Usuario</h3>
+                    <h3>Usuario Nuevo</h3>
                     <form id="profile-form" className="mt-4" onSubmit={this.handleSubmit}>
-                        <div className="form-group">
-                            <label>Nombre</label>
-                            <input type="text" name="name" className={`form-control ${touch.name && errors.name && 'is-invalid'}`}
-                                onChange={this.handleChange}
-                                onBlur={this.handleBlur}
-                                value={user.name}  />
-                             {touch.name && errors.name && (
-                                <p className="text-danger">El campo es obligatorio</p>
-                            )}  
-                        </div>
+                      
+                        <FormField title="Nombre" name="name" 
+                            value={this.state.user.name}
+                            onChange={this.handleChange}  
+                            error={this.state.errors.name}
+                            onBlur={this.handleBlur} 
+                            touch={this.state.touch.name}/>
 
-                        <div className="form-group">
-                            <label>Empleo</label>
-                            <input type="text" name="job" className={`form-control ${touch.job && errors.job && 'is-invalid'}`}
-                                onChange={this.handleChange}
-                                onBlur={this.handleBlur}
-                                value={user.job}  />
-                             {touch.job && errors.job && (
-                                <p className="text-danger">El campo es obligatorio</p>
-                            )}  
-                            </div>
+                        
+                        <FormField title="Empleo" name="job" 
+                            value={this.state.user.job}
+                            onChange={this.handleChange}  
+                            error={this.state.errors.job}
+                            onBlur={this.handleBlur} 
+                            touch={this.state.touch.job}/>
+
 
                         <div className="col-6 pt-4">
-                        <button className="btn btn-primary" form="profile-form" type="submit" disabled={!this.isValid()}>Crear Usuario</button>
+                            <button className="btn btn-primary" form="profile-form" type="submit" disabled={!this.isValid()}>Crear Usuario</button>
                         </div>
 
                     </form>
+                   
                 </div>
                 <a className="float-right"><i className='fa fa-reply fa-2x mt-3 text-danger' onClick={() => this.props.history.go(-1)}></i></a> 
                 

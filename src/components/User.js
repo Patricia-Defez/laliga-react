@@ -34,7 +34,7 @@ class User extends Component {
 
     render() {
         return (
-            <div className="row justify-content-center mt-5">
+            <div className="row justify-content-center mt-5 pl-2">
                 <div className="box mx-auto col-sm-4 mt-5">
                     <div className="media ">
                         <div className="media-left mr-5">
