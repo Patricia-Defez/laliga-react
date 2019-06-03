@@ -1,20 +1,31 @@
 import React, { Component } from 'react'
-import { createUser } from '../services/UsersService'
+import { getUser } from '../services/UsersService'
+import { updateUser } from '../services/UsersService'
 import FormField from './FormField'
+import { Redirect } from 'react-router-dom'
+
 
 const validations = {
     name: v => v.length > 0,
     job: v => v.length > 0
 }
 
-class CreateUser extends Component {
+class UpdateUser extends Component {
 
     state = {
         user: {
-            name: '',
-            job: ''
+            id: '',
+            avatar: '',
+            first_name: '',
+            last_name: '',
+            email: '',
+            
         },
-        isRegistered: false,
+        update: {
+            name: '',
+            job: '',
+        },
+       
         errors: {
             name: true,
             job: true
@@ -28,8 +39,8 @@ class CreateUser extends Component {
             [name]: !validations[e.target.name]
         }
         this.setState({
-            user: {
-                ...this.state.user,
+            update: {
+                ...this.state.update,
                 [name]: value
             },
             errors: {
@@ -51,38 +62,47 @@ class CreateUser extends Component {
 
     handleSubmit = (e) => {
         
-        console.log(this.state.user)
+        console.log(this.state.update)
         e.preventDefault();
         if(this.isValid()) {
-            this.setState({ user: { ...this.state.user} });
-            createUser(this.state.user)
+            
+            updateUser(this.state.user.id, this.state.update)
                 .then(
-                    (user) => {
-                        console.log(user)
-                        this.setState({ isRegistered: true });
-                        console.log(user)
-                    } 
-                  
+                    (update) => {
+                        console.log(update)
+                        this.setState({ update: {...this.state.update, ...update} });
+                        alert('Usuario modificado')
+                    },
+                    (error) => console.log(error)
+                                
                 )
-            this.setState({
-                user: {
-                    name: '',
-                    job: ''
-                },
-                isRegistered: false,
-                errors: {
-                    name: true,
-                    job: true
-                },
-                touch: {},
-            })
+                
+                
         }
-    }
+        this.props.history.go(-2)
+        
+    }   
 
     isValid = () => {
-        return !Object.keys(this.state.user)
+        return !Object.keys(this.state.update)
         .some(attr => this.state.errors[attr])
     }
+
+    componentDidMount() {
+        const { match: { params } } = this.props;
+        console.log(params)
+        getUser(params.id)
+            .then(
+                (user) => {
+                    console.log(user)
+                    this.setState({ user: {...user.data} })
+                    console.log(this.state.user)
+                },
+                (error) => console.error(error)
+
+            )
+    }
+
 
     render() {
         return (
@@ -90,11 +110,11 @@ class CreateUser extends Component {
             <div className="box mx-auto col-sm-4 mt-5">
 
                 <div className="">
-                    <h3>Usuario Nuevo</h3>
+                    <h3>Editar Usuario</h3>
                     <form id="profile-form" className="mt-4" onSubmit={this.handleSubmit}>
                       
                         <FormField title="Nombre" name="name" 
-                            value={this.state.user.name}
+                            value={this.state.update.name}
                             onChange={this.handleChange}  
                             error={this.state.errors.name}
                             onBlur={this.handleBlur} 
@@ -102,7 +122,7 @@ class CreateUser extends Component {
 
                         
                         <FormField title="Empleo" name="job" 
-                            value={this.state.user.job}
+                            value={this.state.update.job}
                             onChange={this.handleChange}  
                             error={this.state.errors.job}
                             onBlur={this.handleBlur} 
@@ -110,7 +130,7 @@ class CreateUser extends Component {
 
 
                         <div className="col-6 pt-4">
-                            <button className="btn btn-primary" form="profile-form" type="submit" disabled={!this.isValid()}>Crear Usuario</button>
+                            <button className="btn btn-primary" form="profile-form" type="submit" disabled={!this.isValid()}>Editar Usuario</button>
                         </div>
 
                     </form>
@@ -118,10 +138,12 @@ class CreateUser extends Component {
                 </div>
                 <a className="float-right"><i className='fa fa-reply fa-2x mt-3 text-danger' onClick={() => this.props.history.go(-1)}></i></a> 
                 
+                </div>
             </div>
-        </div>
+        )
 
-        );
     }
-}    
-export default CreateUser
+
+}
+
+export default UpdateUser;

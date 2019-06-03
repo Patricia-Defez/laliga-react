@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { getUser } from '../services/UsersService'
+import { Link, withRouter } from 'react-router-dom';
 
 class User extends Component {
 
@@ -50,8 +51,13 @@ class User extends Component {
                         </div>
 
                     </div>
+                    <div>
+                        <Link className="btn btn-sm btn-primary" to={`/users/${this.state.user.id}/edit`}>
+                        Editar Usuario
+                        </Link>
+                    </div>
                     <a className="float-right"><i className='fa fa-reply fa-2x mt-3 text-danger' onClick={() => this.props.history.go(-1)}></i></a>
-
+                    
                 </div>
             </div>
 
