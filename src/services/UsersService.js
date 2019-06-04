@@ -15,11 +15,15 @@ const createUser = (user) => http.post('/users', user)
 
 const updateUser = (id, user) => http.patch(`/users/${id}`, user)
     .then(response => response.data)
+
+const deleteUser = (id) => http.delete(`/users/${id}`)
+    .then(response => response.data)
      
 
 export {
     list,
     getUser,
     createUser,
-    updateUser
+    updateUser,
+    deleteUser
 }

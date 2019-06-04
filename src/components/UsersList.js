@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { list } from '../services/UsersService'
+import { deleteUser } from '../services/UsersService'
 import { Link } from 'react-router-dom'
 
 
@@ -32,6 +33,24 @@ class UsersList extends Component {
             currentPage: e.target.id
         })
         console.log(this.state.currentPage)
+        list({per_page:5,page:this.state.currentPage})
+            .then(response => {
+                this.setState({ users: response.data })
+                console.log(response)
+            });
+        
+    }
+
+    handleDeleteUser = (id) => {
+        deleteUser(id) 
+            .then((user) => {
+                const newUsers = [...this.state.users]
+                    .filter(user => user.id !== id);
+                this.setState({
+                    users: newUsers
+                })
+            })
+
     }
 
     render = () => {
@@ -63,7 +82,10 @@ class UsersList extends Component {
                                     {/* <td>{user.first_name}</td> */}
                                     <td>{user.last_name}</td>
                                     <td>{user.email}</td>
+                                    <i className="mr-2 fa fa-times text-danger fa-lg mt-3" 
+                                    onClick={this.handleDeleteUser.bind(this, user.id)}></i>
                                     </tr>
+                                    
                                 ))}
                             </tbody>                                   
                         </table>

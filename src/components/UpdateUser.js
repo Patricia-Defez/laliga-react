@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { getUser } from '../services/UsersService'
 import { updateUser } from '../services/UsersService'
 import FormField from './FormField'
-import { Redirect } from 'react-router-dom'
+
 
 
 const validations = {
