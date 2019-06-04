@@ -17,7 +17,10 @@ class Login extends Component {
             password: ''
         },
         isAuthenticate: false,
-        errors: {},
+        errors: {
+            email: true,
+            password: true
+        },
         touch: {}
     }
 

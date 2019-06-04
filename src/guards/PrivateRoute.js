@@ -13,7 +13,7 @@ const PrivateRoute = ({component: Component, ...rest}) => {
                         } else {
                         return <Redirect to="/forbidden" />                      
                     }
-                    return <Redirect to="/login" />
+                    // return <Redirect to="/login" />
                 }
                 }
                 />
