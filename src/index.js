@@ -6,12 +6,13 @@ import { BrowserRouter } from 'react-router-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { AuthStore } from './contexts/AuthStore'
 
 ReactDOM.render(
 <BrowserRouter>
-       
+       <AuthStore>
             <App />
-        
+        </AuthStore>
     </BrowserRouter>, 
 document.getElementById('root'));
 
