@@ -71,7 +71,7 @@ class UpdateUser extends Component {
                     (update) => {
                         console.log(update)
                         this.setState({ update: {...this.state.update, ...update} });
-                        alert('Usuario modificado')
+                        alert('Usuario Modificado')
                     },
                     (error) => console.log(error)
                                 

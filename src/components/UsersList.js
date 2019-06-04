@@ -9,36 +9,24 @@ class UsersList extends Component {
     state = {
         users: [],
         error: null,
-        currentPage: 1
+        currentPage: 1,
+        usersPerPage: 5
     }
 
     componentDidMount = () => {
-        list({per_page:5,page:this.state.currentPage})
+        list({per_page:12,page:1})
             .then(response => {
                 this.setState({ users: response.data })
                 console.log(response)
             });      
     }
-    // componentDidUpdate = () => {
-    //     list({per_page:5,page:this.state.currentPage})
-    //         .then(response => {
-    //             this.setState({ users: response.data })
-    //             console.log(response)
-    //         });  
-    // }
+  
 
     pagination = (e) => {
         console.log(e.target.id)
         this.setState ({
             currentPage: e.target.id
-        })
-        console.log(this.state.currentPage)
-        list({per_page:5,page:this.state.currentPage})
-            .then(response => {
-                this.setState({ users: response.data })
-                console.log(response)
-            });
-        
+        })        
     }
 
     handleDeleteUser = (id) => {
@@ -54,6 +42,17 @@ class UsersList extends Component {
     }
 
     render = () => {
+
+        const { users, currentPage, usersPerPage } = this.state;
+
+ 
+
+        const indexOfLastAll = currentPage * usersPerPage;
+
+        const indexOfFirstAll = indexOfLastAll - usersPerPage;
+
+        const currentUsers = users.slice(indexOfFirstAll, indexOfLastAll)
+
         return (
             
             <div className="box mx-auto mt-5">
@@ -74,16 +73,15 @@ class UsersList extends Component {
                             </thead>
                             <tbody>
 
-                                {this.state.users.map((user, index) => (
+                                {currentUsers.map((user, index) => (
                                     <tr {...user} key={index} className="text-center align-middle">
                                     <th scope="row">{index + 1}</th>
                                     <td><img className="img-fluid rounded-circle" width="50" height="50" src={user.avatar || "http://ecuciencia.utc.edu.ec/media/foto/default-user_x5fGYax.png"}/></td>
                                     <td><Link to={`/users/${user.id}`}>{user.first_name} </Link></td>
-                                    {/* <td>{user.first_name}</td> */}
                                     <td>{user.last_name}</td>
                                     <td>{user.email}</td>
-                                    <i className="mr-2 fa fa-times text-danger fa-lg mt-3" 
-                                    onClick={this.handleDeleteUser.bind(this, user.id)}></i>
+                                    <td><i className="mr-2 fa fa-times text-danger fa-lg mt-3" 
+                                    onClick={this.handleDeleteUser.bind(this, user.id)}></i></td>
                                     </tr>
                                     
                                 ))}
