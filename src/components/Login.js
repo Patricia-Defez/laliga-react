@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { login } from '../services/authService'
 import { Redirect } from 'react-router-dom'
 import FormField from './FormField'
-
+// import { withAuthConsumer } from '../../contexts/AuthStore'
 
 const validations = {
     email: v => /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v),
@@ -120,3 +120,4 @@ class Login extends Component {
     }
 }    
 export default Login
+// export default withAuthConsumer(Login)

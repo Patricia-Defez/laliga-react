@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { getUser } from '../services/UsersService'
 import { updateUser } from '../services/UsersService'
 import FormField from './FormField'
-
+// import { withAuthConsumer } from '../../contexts/AuthStore'
 
 
 const validations = {
@@ -147,3 +147,4 @@ class UpdateUser extends Component {
 }
 
 export default UpdateUser;
+// export default withAuthConsumer(UpdateUser)

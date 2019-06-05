@@ -22,15 +22,15 @@ class NavBar extends Component {
                     <img src="https://www.thesportsdb.com/images/media/league/badge/7onmyv1534768460.png" width="100" height="100" alt="logo_LaLiga"/>
                 </a>
 
-                <div className="collapse navbar-collapse float-right" id="mainNavbar">
-                <ul className="navbar-nav my-2 my-lg-0 ">
+                <div className="collapse navbar-collapse " id="mainNavbar">
+                <ul className="navbar-nav my-2 my-lg-0">
                         {!isAuthenticated() &&
                             <Fragment>
                                 <li className="nav-item">
                                 <NavLink className="nav-link" activeClassName="active" to="/login">Login</NavLink>
                                 </li>
                                 <li className="nav-item">
-                                <NavLink className="nav-link" activeClassName="active" to="/register">Register</NavLink>
+                                <NavLink className="nav-link" activeClassName="active" to="/users">Usuarios</NavLink>
                                 </li>
                             </Fragment>
                         }  

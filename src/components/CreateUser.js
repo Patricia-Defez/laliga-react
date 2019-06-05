@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { createUser } from '../services/UsersService'
 import FormField from './FormField'
+// import { withAuthConsumer } from '../../contexts/AuthStore'
 
 const validations = {
     name: v => v.length > 0,
@@ -124,4 +125,5 @@ class CreateUser extends Component {
         );
     }
 }    
-export default CreateUser
+export default CreateUser;
+// export default withAuthConsumer(CreateUser)

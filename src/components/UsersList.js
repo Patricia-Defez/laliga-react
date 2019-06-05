@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { list } from '../services/UsersService'
 import { deleteUser } from '../services/UsersService'
 import { Link } from 'react-router-dom'
+// import { withAuthConsumer } from '../../contexts/AuthStore'
 
 
 class UsersList extends Component {
@@ -110,3 +111,5 @@ class UsersList extends Component {
 }
 
 export default UsersList;
+
+// export default withAuthConsumer(UsersList)

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { getUser } from '../services/UsersService'
 import { Link, withRouter } from 'react-router-dom';
+// import { withAuthConsumer } from '../../contexts/AuthStore'
 
 class User extends Component {
 
@@ -68,3 +69,4 @@ class User extends Component {
 }
 
 export default User;
+// export default withAuthConsumer(User)
