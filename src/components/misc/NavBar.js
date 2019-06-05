@@ -1,5 +1,5 @@
-import React, { Component } from 'react'
-import { Link, NavLink } from 'react-router-dom'
+import React, { Fragment, Component } from 'react'
+import { Link, NavLink, withRouter } from 'react-router-dom'
 
 import { withAuthConsumer } from '../../contexts/AuthStore'
 
@@ -15,12 +15,15 @@ class NavBar extends Component {
 
 
     render() {
+        const { isAuthenticated, user} = this.props
         return (
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark w-100">
-                <Link className="navbar-brand" to="https://www.laliga.es/">
-                    <img src="https://files.laliga.es/seccion_logos/laliga-h-negativo-600x600_2018.jpg" width="30" height="30" alt="logo_LaLiga"/>
-                </Link>
-                <ul className="navbar-nav my-2 my-lg-0">
+                <a className="navbar-brand" href="https://www.laliga.es/" target="_blank">
+                    <img src="https://www.thesportsdb.com/images/media/league/badge/7onmyv1534768460.png" width="100" height="100" alt="logo_LaLiga"/>
+                </a>
+
+                <div className="collapse navbar-collapse float-right" id="mainNavbar">
+                <ul className="navbar-nav my-2 my-lg-0 ">
                         {!isAuthenticated() &&
                             <Fragment>
                                 <li className="nav-item">
@@ -43,7 +46,7 @@ class NavBar extends Component {
                             </Fragment>
                         }  
                     </ul>
-               
+                    </div>
             </nav>
         );
     }

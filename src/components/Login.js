@@ -85,9 +85,9 @@ class Login extends Component {
             <div className = "row justify-content-center mt-5 pl-5">
             <div className="box mx-auto col-sm-4 mt-5">
 
-                <div className="">
-                    <h3>Login</h3>
-                    <form id="profile-form" className="mt-4" onSubmit={this.handleSubmit}>
+                <div className="justify-content-center">
+                    <h3 className="mt-4 pr-5">Login</h3>
+                    <form id="profile-form" className="mt-4 pr-5" onSubmit={this.handleSubmit}>
                       
                         <FormField title="Email" name="email" 
                             value={this.state.user.email}
